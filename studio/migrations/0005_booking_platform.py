@@ -120,7 +120,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="teammember",
             name="slug",
-            field=models.SlugField(blank=True, null=True),
+            field=models.SlugField(blank=True, db_index=False, null=True),
         ),
         migrations.AddField(
             model_name="teammember",
