@@ -1,0 +1,33 @@
+{% extends 'studio/base.html' %}
+
+{% block title %}{{ copy.nav_journal }} · {{ copy.site_name }}{% endblock %}
+{% block description %}{{ copy.journal_lead }}{% endblock %}
+{% block og_title %}Журнал · {{ copy.site_name }}{% endblock %}
+{% block og_description %}{{ copy.journal_lead }}{% endblock %}
+{% block twitter_title %}Журнал · {{ copy.site_name }}{% endblock %}
+{% block twitter_description %}{{ copy.journal_lead }}{% endblock %}
+
+{% block content %}
+  <section class="page-title journal-title">
+    <div>
+      <p class="eyebrow">{{ copy.journal_eyebrow }}</p>
+      <h1>{{ copy.journal_title }}<br /><em>{{ copy.journal_accent }}</em></h1>
+    </div>
+    <span>{{ copy.journal_lead }}</span>
+  </section>
+  <section class="section article-grid">
+    {% for item in articles %}
+      <article class="{% if forloop.first %}featured{% endif %} reveal">
+        <img src="{{ item.image_url }}" alt="{{ item.image_alt|default:item.title }}" loading="lazy" decoding="async" />
+        <div>
+          <p class="eyebrow">{{ item.category }} · {{ item.reading_time }} минут</p>
+          <h2>{{ item.title }}</h2>
+          <p>{{ item.excerpt }}</p>
+          <a class="text-link" href="{% url 'studio:article' item.slug %}">{{ copy.journal_read }}</a>
+        </div>
+      </article>
+    {% endfor %}
+  </section>
+  {% if page_obj.paginator.num_pages > 1 %}<nav class="pagination" aria-label="Страницы журнала">{% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}" aria-label="Предыдущая страница">← Назад</a>{% endif %}<span>Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>{% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}" aria-label="Следующая страница">Вперёд →</a>{% endif %}</nav>{% endif %}
+  {% if not articles %}<p class="empty-state">Материалов пока нет.</p>{% endif %}
+{% endblock %}

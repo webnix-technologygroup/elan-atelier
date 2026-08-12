@@ -1,0 +1,8 @@
+{% extends 'studio/base.html' %}
+{% block title %}{{ item.name }} · {{ copy.site_name }}{% endblock %}
+{% block description %}{{ item.specialization }} · {{ item.bio }}{% endblock %}
+{% block og_title %}{{ item.name }} · {{ copy.site_name }}{% endblock %}
+{% block og_description %}{{ item.specialization }} · {{ item.bio }}{% endblock %}
+{% block twitter_title %}{{ item.name }} · {{ copy.site_name }}{% endblock %}
+{% block twitter_description %}{{ item.specialization }} · {{ item.bio }}{% endblock %}
+{% block extra_head %}<script type="application/ld+json">{{ structured_data|safe }}</script>{% endblock %}{% block content %}<section class="detail-hero"><div><p class="eyebrow">{{ item.specialization }}</p><h1>{{ item.name }}</h1><p>{{ item.bio_full|default:item.bio }}</p><p>{{ item.experience }}</p><a class="button button-dark" href="{% url 'studio:booking' %}?master={{ item.slug }}">Записаться к мастеру</a></div><img src="{{ item.image_url }}" alt="{{ item.name }}"></section><section class="section"><h2>Услуги</h2><div class="service-cards">{% for service in item.services.all %}<a class="service-card" href="{% url 'studio:service_detail' service.slug %}"><h3>{{ service.title }}</h3><p>{{ service.short_description }}</p><b>{{ service.price_display }}</b></a>{% endfor %}</div></section>{% include 'studio/partials/gallery.html' with items=works %}<section class="section review-grid">{% for review in reviews %}<blockquote>“{{ review.text }}”<footer>{{ review.name }} · {{ review.rating }}/5</footer></blockquote>{% endfor %}</section>{% endblock %}

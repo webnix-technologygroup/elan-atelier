@@ -1,0 +1,15 @@
+{% extends 'studio/base.html' %}
+
+{% block title %}404 · {{ copy.site_name }}{% endblock %}
+
+{% block content %}
+  <section class="not-found">
+    <div>
+      <p class="eyebrow">{{ copy.error_eyebrow }}</p>
+      <h1>{{ copy.error_title }}<br /><em>{{ copy.error_accent }}</em></h1>
+      <p>{{ copy.error_text }}</p>
+      <a class="button button-dark" href="{% url 'studio:home' %}">{{ copy.error_button }}</a>
+    </div>
+    <div class="error-art"><span>4</span><i>✂</i><span>4</span></div>
+  </section>
+{% endblock %}

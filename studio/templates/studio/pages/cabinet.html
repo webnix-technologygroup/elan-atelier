@@ -1,0 +1,53 @@
+{% extends 'studio/base.html' %}
+
+{% block title %}Мои записи · {{ copy.site_name }}{% endblock %}
+{% block extra_head %}<meta name="robots" content="noindex" />{% endblock %}
+
+{% block content %}
+<section class="cabinet-page" aria-labelledby="cabinet-title">
+  <header class="cabinet-heading">
+    <div>
+      <p class="eyebrow">{{ customer.email }}</p>
+      <h1 id="cabinet-title">Мои записи.</h1>
+    </div>
+    <form method="post" action="{% url 'studio:logout_customer' %}">
+      {% csrf_token %}
+      <button class="text-link" type="submit">Выйти</button>
+    </form>
+  </header>
+
+  <section aria-labelledby="upcoming-title">
+    <h2 id="upcoming-title">Будущие</h2>
+    <div class="booking-list">
+      {% for item in upcoming %}
+        <a class="booking-status-card" href="{% url 'studio:booking_detail' item.public_id %}">
+          <strong>{{ item.get_status_display }}</strong>
+          <h2>{{ item.service.title }}</h2>
+          <p>{{ item.master.name }} · {{ item.starts_at|date:'d.m.Y H:i' }}</p>
+        </a>
+      {% empty %}
+        <div class="cabinet-empty">
+          <h2>Будущих записей нет.</h2>
+          <p>Выберите услугу и удобное время — запись появится здесь.</p>
+          <a class="button button-dark" href="{% url 'studio:booking' %}">Записаться</a>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section aria-labelledby="history-title">
+    <h2 id="history-title">История</h2>
+    <div class="booking-list">
+      {% for item in history %}
+        <a class="booking-status-card" href="{% url 'studio:booking_detail' item.public_id %}">
+          <strong>{{ item.get_status_display }}</strong>
+          <h2>{{ item.service.title }}</h2>
+          <p>{{ item.starts_at|date:'d.m.Y H:i' }}</p>
+        </a>
+      {% empty %}
+        <div class="cabinet-empty"><p>История пока пуста.</p></div>
+      {% endfor %}
+    </div>
+  </section>
+</section>
+{% endblock %}

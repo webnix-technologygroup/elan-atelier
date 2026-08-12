@@ -1,0 +1,24 @@
+<footer>
+  <div class="footer-brand">
+    <span class="brand-mark">{{ copy.site_mark }}</span>
+    <h2>{{ copy.site_name }}</h2>
+    <p>{{ copy.site_tagline }}</p>
+  </div>
+  <div>
+    <p class="footer-label">{{ copy.footer_section }}</p>
+    <a href="{% url 'studio:services' %}">{{ copy.nav_services }}</a>
+    <a href="{% url 'studio:team' %}">{{ copy.nav_team }}</a>
+    <a href="{% url 'studio:journal' %}">{{ copy.nav_journal }}</a>
+  </div>
+  <div>
+    <p class="footer-label">{{ copy.footer_contacts }}</p>
+    <a href="tel:{{ copy.phone_href }}">{{ copy.phone }}</a>
+    <a href="mailto:{{ copy.email }}">{{ copy.email }}</a>
+    <a href="{% url 'studio:contacts' %}">{{ copy.address }}</a>
+  </div>
+  <div class="footer-bottom">
+    <span>© {% now 'Y' %} {{ copy.site_name }}</span>
+    <a href="{% url 'studio:privacy' %}">{{ copy.footer_privacy }}</a>
+    <a href="#top">{{ copy.footer_top }}</a>
+  </div>
+</footer>

@@ -1,0 +1,25 @@
+{% extends 'studio/base.html' %}
+
+{% block title %}{{ article.title }} · {{ copy.site_name }}{% endblock %}
+{% block description %}{{ article.excerpt }}{% endblock %}
+{% block og_title %}{{ article.title }} · {{ copy.site_name }}{% endblock %}
+{% block og_description %}{{ article.excerpt }}{% endblock %}
+{% block og_type %}article{% endblock %}
+{% block twitter_title %}{{ article.title }} · {{ copy.site_name }}{% endblock %}
+{% block twitter_description %}{{ article.excerpt }}{% endblock %}
+{% block extra_head %}<script type="application/ld+json">{{ structured_data|safe }}</script>{% endblock %}
+
+{% block content %}
+  <article class="article-page">
+    <a class="back-link" href="{% url 'studio:journal' %}">{{ copy.article_back }}</a>
+    <p class="eyebrow">{{ article.category }} · {{ article.reading_time }} минут</p>
+    <h1>{{ article.title }}</h1>
+    <p class="article-lead">{{ article.excerpt }}</p>
+    <p class="article-meta">{{ article.published_at|date:"d.m.Y" }} · Редакция Élan Atelier</p>
+    <img src="{{ article.image_url }}" alt="{{ article.image_alt|default:article.title }}" decoding="async" />
+    <div class="article-body">{{ article.body|linebreaks }}</div>
+    <aside>{{ copy.article_callout }}</aside>
+    <a class="button button-dark" href="{% url 'studio:booking' %}">{{ copy.article_button }}</a>
+    {% if related %}<section class="related-articles" aria-labelledby="related-title"><h2 id="related-title">Похожие материалы</h2><div class="article-grid">{% for item in related %}<article><img src="{{ item.image_url }}" alt="{{ item.image_alt|default:item.title }}" loading="lazy" decoding="async"><p class="eyebrow">{{ item.category }}</p><h3><a href="{% url 'studio:article' item.slug %}">{{ item.title }}</a></h3></article>{% endfor %}</div></section>{% endif %}
+  </article>
+{% endblock %}

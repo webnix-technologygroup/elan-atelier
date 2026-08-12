@@ -1,0 +1,19 @@
+<header class="site-header" id="top">
+  <a class="brand" href="{% url 'studio:home' %}">
+    <span class="brand-mark">{{ copy.site_mark }}</span>
+    <span>{{ copy.site_name }}</span>
+  </a>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+    <span></span><span></span><span></span><span class="sr-only">Открыть меню</span>
+  </button>
+  <nav id="site-nav" class="site-nav" aria-label="Основная навигация">
+    <a class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}" href="{% url 'studio:home' %}">{{ copy.nav_home }}</a>
+    <a class="{% if request.resolver_match.url_name == 'services' %}active{% endif %}" href="{% url 'studio:services' %}">{{ copy.nav_services }}</a>
+    <a class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}" href="{% url 'studio:about' %}">{{ copy.nav_about }}</a>
+    <a class="{% if request.resolver_match.url_name == 'team' %}active{% endif %}" href="{% url 'studio:team' %}">{{ copy.nav_team }}</a>
+    <a class="{% if request.resolver_match.url_name == 'journal' or request.resolver_match.url_name == 'article' %}active{% endif %}" href="{% url 'studio:journal' %}">{{ copy.nav_journal }}</a>
+    <a class="{% if request.resolver_match.url_name == 'contacts' %}active{% endif %}" href="{% url 'studio:contacts' %}">{{ copy.nav_contacts }}</a>
+    <a class="nav-cabinet {% if request.resolver_match.url_name == 'cabinet' %}active{% endif %}" href="{% url 'studio:cabinet' %}">{{ copy.nav_cabinet }}</a>
+  </nav>
+  <a class="header-cta" href="{% url 'studio:booking' %}">{{ copy.header_cta }}</a>
+</header>

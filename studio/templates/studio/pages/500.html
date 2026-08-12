@@ -1,0 +1,9 @@
+{% extends 'studio/base.html' %}
+{% block title %}Ошибка сервера · {{ copy.site_name }}{% endblock %}
+{% block extra_head %}<meta name="robots" content="noindex" />{% endblock %}
+{% block content %}
+<section class="not-found error-page">
+  <div><p class="eyebrow">Ошибка 500</p><h1>Что-то пошло<br><em>не так.</em></h1><p>Технические детали скрыты. Попробуйте позже.</p><a class="button button-dark" href="{% url 'studio:home' %}">На главную</a></div>
+  <div class="error-art" aria-hidden="true"><span>5</span><i>✦</i><span>0</span></div>
+</section>
+{% endblock %}

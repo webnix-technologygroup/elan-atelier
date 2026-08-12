@@ -1,0 +1,24 @@
+{% extends 'studio/base.html' %}
+
+{% block title %}Вход · {{ copy.site_name }}{% endblock %}
+{% block extra_head %}<meta name="robots" content="noindex" />{% endblock %}
+
+{% block content %}
+<section class="auth-page" aria-labelledby="login-title">
+  <p class="eyebrow">Личный кабинет</p>
+  <h1 id="login-title">Вход без пароля.</h1>
+  <div class="auth-card">
+    <p>Отправим одноразовый код и magic-link. В деморежиме письмо появится в терминале.</p>
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+      <p>
+        {{ form.email.label_tag }}
+        {{ form.email }}
+        {{ form.email.errors }}
+      </p>
+      <button class="button button-dark" type="submit">Получить код</button>
+    </form>
+  </div>
+</section>
+{% endblock %}

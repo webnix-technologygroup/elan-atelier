@@ -1,0 +1,31 @@
+{% extends 'studio/base.html' %}
+
+{% block title %}{{ copy.nav_contacts }} · {{ copy.site_name }}{% endblock %}
+
+{% block content %}
+  <section class="page-hero contact-hero">
+    <div>
+      <p class="eyebrow">{{ copy.contacts_eyebrow }}</p>
+      <h1>{{ copy.contacts_title }}<br /><em>{{ copy.contacts_accent }}</em></h1>
+      <p>{{ copy.address }}.</p>
+    </div>
+    <div class="map-abstract"><span>{{ copy.site_mark }}</span><i></i><b>{{ copy.metro_note }}</b></div>
+  </section>
+  <section class="section contact-grid">
+    <article>
+      <p class="eyebrow">{{ copy.address_label }}</p>
+      <h2>{{ copy.address }}</h2>
+      <p>{{ copy.address_note }}</p>
+    </article>
+    <article>
+      <p class="eyebrow">{{ copy.hours_label }}</p>
+      <h2>{{ copy.hours|linebreaksbr }}</h2>
+      <p>{{ copy.hours_note }}</p>
+    </article>
+    <article>
+      <p class="eyebrow">{{ copy.contact_label }}</p>
+      <h2>{{ copy.phone }}</h2>
+      <a href="mailto:{{ copy.email }}">{{ copy.email }}</a>
+    </article>
+  </section>
+{% endblock %}

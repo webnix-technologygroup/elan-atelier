@@ -1,0 +1,27 @@
+{% extends 'studio/base.html' %}
+{% load static %}
+{% block title %}Онлайн-запись · {{ copy.site_name }}{% endblock %}
+{% block extra_head %}<meta name="robots" content="noindex" />{% endblock %}
+{% block content %}
+<section class="booking-wizard" data-booking data-initial-step="{{ initial_step|default:1 }}" data-slots-url="{% url 'studio:available_slots' %}" data-masters-url="{% url 'studio:available_masters' %}">
+  <header>
+    <p class="eyebrow">Онлайн-запись</p>
+    <h1>Выберите удобное время.</h1>
+    <ol class="wizard-progress" aria-label="Этапы записи">
+      <li>Услуга</li><li>Мастер</li><li>Дата</li><li>Время</li><li>Контакты</li><li>Проверка</li>
+    </ol>
+  </header>
+  <form method="post" novalidate>
+    {% csrf_token %}{{ form.website }}{{ form.time }}{{ form.selected_master }}
+    {% if form.non_field_errors %}<div class="wizard-error" data-form-error="non_field">{{ form.non_field_errors }}</div>{% endif %}
+    <section class="wizard-step" data-step="1"><div class="step-error" id="step-error-1" data-step-error role="alert" aria-live="polite"></div><span>01</span><h2>Услуга</h2><label>{{ form.service.label }}{{ form.service }}{{ form.service.errors }}</label><button type="button" class="button button-dark" data-next>Продолжить</button></section>
+    <section class="wizard-step" data-step="2" hidden><div class="step-error" id="step-error-2" data-step-error role="alert" aria-live="polite"></div><span>02</span><h2>Мастер</h2><label>{{ form.master.label }}{{ form.master }}{{ form.master.errors }}</label><div class="master-choice-grid" data-master-cards></div><p>Можно выбрать любого подходящего мастера.</p><div class="wizard-actions"><button type="button" class="text-link" data-back>Назад</button><button type="button" class="button button-dark" data-next>Продолжить</button></div></section>
+    <section class="wizard-step" data-step="3" hidden><div class="step-error" id="step-error-3" data-step-error role="alert" aria-live="polite"></div><span>03</span><h2>Дата</h2><label>{{ form.date.label }}{{ form.date }}{{ form.date.errors }}</label><div class="wizard-actions"><button type="button" class="text-link" data-back>Назад</button><button type="button" class="button button-dark" data-load-slots>Показать время</button></div></section>
+    <section class="wizard-step" data-step="4" hidden><div class="step-error" id="step-error-4" data-step-error role="alert" aria-live="polite"></div><span>04</span><h2>Свободное время</h2><div class="slots-status" aria-live="polite"></div><div class="slot-grid"></div><div class="nearest-dates" data-nearest-dates></div>{{ form.time.errors }}<div class="wizard-actions"><button type="button" class="text-link" data-back>Назад</button><button type="button" class="button button-dark" data-next>Продолжить</button></div></section>
+    <section class="wizard-step" data-step="5" hidden><div class="step-error" id="step-error-5" data-step-error role="alert" aria-live="polite"></div><span>05</span><h2>Контактные данные</h2><div class="form-grid"><label>Имя{{ form.name }}{{ form.name.errors }}</label><label>Телефон{{ form.phone }}{{ form.phone.errors }}</label><label>Email{{ form.email }}{{ form.email.errors }}</label><label class="wide">Комментарий{{ form.message }}{{ form.message.errors }}</label><label class="consent wide">{{ form.consent }}<span>Согласен с политикой конфиденциальности</span>{{ form.consent.errors }}</label></div><div class="wizard-actions"><button type="button" class="text-link" data-back>Назад</button><button type="button" class="button button-dark" data-review>Проверить</button></div></section>
+    <section class="wizard-step" data-step="6" hidden><div class="step-error" id="step-error-6" data-step-error role="alert" aria-live="polite"></div><span>06</span><h2>Проверьте запись</h2><dl class="booking-review" aria-live="polite"></dl><p>Отмена и перенос доступны не позднее чем за 12 часов до визита.</p><div class="wizard-actions"><button type="button" class="text-link" data-back>Изменить</button><button type="submit" class="button button-dark" data-submit>Подтвердить запись</button></div></section>
+    <noscript><p class="wizard-error">Для выбора онлайн-слота требуется JavaScript. Свяжитесь с нами по телефону <a href="tel:{{ copy.phone_href }}">{{ copy.phone }}</a> или email <a href="mailto:{{ copy.email }}">{{ copy.email }}</a>.</p></noscript>
+  </form>
+</section>
+{% endblock %}
+{% block extra_js %}<script src="{% static 'studio/js/booking.js' %}"></script>{% endblock %}

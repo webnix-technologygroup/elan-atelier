@@ -1,0 +1,44 @@
+{% load static %}
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}{{ copy.site_name }}{% endblock %}</title>
+    <meta name="description" content="{% block description %}{{ copy.meta_description }}{% endblock %}" />
+    <link rel="canonical" href="{{ canonical_url }}" />
+    <meta property="og:title" content="{% block og_title %}{{ copy.site_name }}{% endblock %}" />
+    <meta property="og:description" content="{% block og_description %}{{ copy.meta_description }}{% endblock %}" />
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}" />
+    <meta property="og:url" content="{{ canonical_url }}" />
+    <meta property="og:image" content="{% block og_image %}{{ page_og_image|default:og_image_url }}{% endblock %}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{% block twitter_title %}{{ copy.site_name }}{% endblock %}" />
+    <meta name="twitter:description" content="{% block twitter_description %}{{ copy.meta_description }}{% endblock %}" />
+    <meta name="twitter:image" content="{% block twitter_image %}{{ page_og_image|default:og_image_url }}{% endblock %}" />
+    <meta name="theme-color" content="#f4f0ea" />
+    <link rel="icon" href="{% static 'studio/img/favicon.svg' %}" />
+    <link rel="stylesheet" href="{% static 'studio/css/styles.css' %}" />
+    {% block extra_head %}{% endblock %}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{{ copy.skip_link }}</a>
+    {% include 'studio/partials/header.html' %}
+
+    {% if messages %}
+      <div class="messages" aria-live="polite">
+        {% for message in messages %}
+          <p class="message {{ message.tags }}">{{ message }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <main id="main">
+      {% block content %}{% endblock %}
+    </main>
+
+    {% include 'studio/partials/footer.html' %}
+    <script src="{% static 'studio/js/main.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+  </body>
+</html>

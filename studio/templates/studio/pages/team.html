@@ -1,0 +1,32 @@
+{% extends 'studio/base.html' %}
+
+{% block title %}{{ copy.nav_team }} · {{ copy.site_name }}{% endblock %}
+{% block description %}{{ copy.team_page_lead }}{% endblock %}
+{% block og_title %}Команда · {{ copy.site_name }}{% endblock %}
+{% block og_description %}{{ copy.team_page_lead }}{% endblock %}
+{% block twitter_title %}Команда · {{ copy.site_name }}{% endblock %}
+{% block twitter_description %}{{ copy.team_page_lead }}{% endblock %}
+
+{% block content %}
+  <section class="page-title">
+    <div>
+      <p class="eyebrow">{{ copy.team_page_eyebrow }}</p>
+      <h1>{{ copy.team_page_title }}<br /><em>{{ copy.team_page_accent }}</em></h1>
+    </div>
+    <p class="page-intro">{{ copy.team_page_lead }}</p>
+  </section>
+  <section class="section team-grid">
+    {% for member in members %}
+      <article class="reveal">
+        <div class="portrait-frame">
+          <img src="{{ member.image_url }}" alt="{{ member.name }}" />
+          <span>{{ member.experience }}</span>
+        </div>
+        <p class="eyebrow">{{ member.role }}</p>
+        <h2>{{ member.name }}</h2>
+        <p>{{ member.bio }}</p>
+        <a class="text-link" href="{% url 'studio:team_detail' member.slug %}">{{ copy.team_booking_link }}</a>
+      </article>
+    {% endfor %}
+  </section>
+{% endblock %}

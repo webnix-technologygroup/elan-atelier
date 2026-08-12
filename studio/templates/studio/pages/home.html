@@ -1,0 +1,91 @@
+{% extends 'studio/base.html' %}
+
+{% block title %}{{ copy.site_name }}{% endblock %}
+{% block extra_head %}<script type="application/ld+json">{{ structured_data|safe }}</script>{% endblock %}
+
+{% block content %}
+  <section class="hero home-hero">
+    <div class="hero-copy">
+      <p class="eyebrow">{{ copy.home_eyebrow }}</p>
+      <h1>{{ copy.home_title }}<br /><em>{{ copy.home_accent }}</em><br />{{ copy.home_title_end }}</h1>
+      <p class="hero-lead">{{ copy.home_lead }}</p>
+      <div class="hero-actions">
+        <a class="button button-dark" href="{% url 'studio:booking' %}">{{ copy.home_primary_cta }}</a>
+        <a class="text-link" href="{% url 'studio:services' %}">{{ copy.home_secondary_cta }}</a>
+      </div>
+    </div>
+    <figure class="hero-visual">
+      {% if assets.home_hero %}<img src="{{ assets.home_hero }}" alt="" />{% endif %}
+      <figcaption><span>01</span><span>{{ copy.site_tagline }}</span></figcaption>
+    </figure>
+    <aside class="hero-stamp">
+      {% if rating %}<b>{{ rating }}</b>{% else %}<b>Новый проект</b>{% endif %}
+      <span>{{ review_count }} отзывов</span>
+    </aside>
+  </section>
+
+  <section class="ticker" aria-label="Принципы салона">
+    <div class="ticker-static"><span>{{ copy.ticker_text }}</span></div>
+  </section>
+
+  <section class="section intro-grid">
+    <div>
+      <p class="eyebrow">{{ copy.home_services_eyebrow }}</p>
+      <h2>{{ copy.home_services_title }}<br /><em>{{ copy.home_services_accent }}</em></h2>
+    </div>
+    <div><p class="large-copy">{{ copy.home_services_text }}</p><span class="index-mark">02 / Services</span></div>
+  </section>
+
+  <section class="service-cards" aria-label="Основные услуги">
+    {% for service in featured_services %}
+      <a class="service-card reveal" href="{% url 'studio:service_detail' service.slug %}">
+        <span class="service-index">0{{ forloop.counter }}</span>
+        <img class="icon" src="{{ service.icon_url }}" alt="" />
+        <h3>{{ service.title }}</h3>
+        <p>{{ service.description|truncatewords:12 }}</p>
+        <b>{{ service.price_display }} · {{ copy.nav_services }} →</b>
+      </a>
+    {% endfor %}
+  </section>
+
+  <section class="manifesto section">
+    <div class="manifesto-image">
+      {% if assets.home_manifesto %}<img src="{{ assets.home_manifesto }}" alt="" />{% endif %}
+    </div>
+    <div class="manifesto-copy">
+      <p class="eyebrow">{{ copy.home_manifesto_eyebrow }}</p>
+      <h2>{{ copy.home_manifesto_title }}<br /><em>{{ copy.home_manifesto_accent }}</em></h2>
+      <p>{{ copy.home_manifesto_text }}</p>
+      <dl>
+        <div><dt>{{ copy.consultation_value }}</dt><dd>{{ copy.consultation_label }}</dd></div>
+        <div><dt>{{ master_count }}</dt><dd>{{ copy.masters_label }}</dd></div>
+      </dl>
+      <a class="text-link" href="{% url 'studio:about' %}">{{ copy.about_link }}</a>
+    </div>
+  </section>
+
+  <section class="section home-team">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">{{ copy.home_team_eyebrow }}</p>
+        <h2>{{ copy.home_team_title }}<br /><em>{{ copy.home_team_accent }}</em></h2>
+      </div>
+      <a class="text-link" href="{% url 'studio:team' %}">{{ copy.team_link }}</a>
+    </div>
+    <div class="mini-team">
+      {% for member in team %}
+        <article class="reveal">
+          <img src="{{ member.image_url }}" alt="{{ member.name }}" />
+          <h3>{{ member.name }}</h3>
+          <p>{{ member.role }}</p>
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="booking-banner">
+    <div><p class="eyebrow">{{ copy.banner_eyebrow }}</p><h2>{{ copy.banner_title }}</h2></div>
+    <a class="button button-light" href="{% url 'studio:booking' %}">{{ copy.banner_button }}</a>
+  </section>
+{% include 'studio/partials/gallery.html' with items=gallery %}<section class="section review-grid"><div class="section-heading"><h2>Отзывы</h2><span>Демонстрационные данные</span></div>{% for review in reviews %}<blockquote>“{{ review.text }}”<footer>{{ review.name }} · {{ review.rating }}/5</footer></blockquote>{% endfor %}</section>
+{% endblock %}

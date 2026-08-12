@@ -1,0 +1,25 @@
+{% extends 'studio/base.html' %}
+
+{% block title %}Запись создана · {{ copy.site_name }}{% endblock %}
+{% block extra_head %}<meta name="robots" content="noindex" />{% endblock %}
+
+{% block content %}
+<section class="success-page" aria-labelledby="success-title">
+  <p class="eyebrow">Заявка №{{ item.id }}</p>
+  <h1 id="success-title">Время<br /><em>забронировано.</em></h1>
+  <div class="success-card">
+    <span>{{ item.get_status_display }}</span>
+    <h2>{{ item.service.title }}</h2>
+    <p>{{ item.master.name }} · {{ item.starts_at|date:'d.m.Y H:i' }}</p>
+    <dl>
+      <div><dt>Длительность</dt><dd>{{ item.duration_minutes }} минут</dd></div>
+      <div><dt>Цена</dt><dd>{{ item.price }} ₴</dd></div>
+    </dl>
+    <p>Подтверждение и ссылка для входа отправляются через настроенный email backend. В деморежиме письмо печатается в терминале.</p>
+    <div class="success-actions">
+      <a class="button button-dark" href="{% url 'studio:cabinet' %}">Мои записи</a>
+      <a class="text-link" href="{% url 'studio:booking_ics' item.public_id %}">Добавить в календарь (.ics)</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

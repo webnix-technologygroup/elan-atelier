@@ -1,0 +1,1 @@
+{% if items %}<section class="section works"><div class="section-heading"><h2>Работы</h2><a class="text-link" href="{% url 'studio:gallery' %}">Вся галерея →</a></div><div class="gallery-grid">{% for work in items %}<figure><img src="{{ work.image_url }}" alt="{{ work.alt }}"><figcaption>{{ work.title }}</figcaption></figure>{% endfor %}</div></section>{% endif %}

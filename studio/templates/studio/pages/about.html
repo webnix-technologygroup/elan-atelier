@@ -1,0 +1,31 @@
+{% extends 'studio/base.html' %}
+
+{% block title %}{{ copy.nav_about }} · {{ copy.site_name }}{% endblock %}
+
+{% block content %}
+  <section class="page-hero editorial-hero">
+    <div>
+      <p class="eyebrow">{{ copy.about_eyebrow }}</p>
+      <h1>{{ copy.about_title }}<br /><em>{{ copy.about_accent }}</em><br />{{ copy.about_title_end }}</h1>
+    </div>
+    <figure>
+      {% if assets.about_hero %}<img src="{{ assets.about_hero }}" alt="" />{% endif %}
+      <figcaption>{{ copy.about_caption }}</figcaption>
+    </figure>
+  </section>
+  <section class="section editorial">
+    <div>
+      <p class="eyebrow">{{ copy.about_manifesto_eyebrow }}</p>
+      <h2>{{ copy.about_manifesto_title }}</h2>
+    </div>
+    <div>
+      <p class="large-copy">{{ copy.about_manifesto_lead }}</p>
+      <p>{{ copy.about_manifesto_text }}</p>
+    </div>
+  </section>
+  <section class="values">
+    <article><b>01</b><h3>{{ copy.value_1_title }}</h3><p>{{ copy.value_1_text }}</p></article>
+    <article><b>02</b><h3>{{ copy.value_2_title }}</h3><p>{{ copy.value_2_text }}</p></article>
+    <article><b>03</b><h3>{{ copy.value_3_title }}</h3><p>{{ copy.value_3_text }}</p></article>
+  </section>
+{% endblock %}

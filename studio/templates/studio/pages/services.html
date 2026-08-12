@@ -1,0 +1,63 @@
+{% extends 'studio/base.html' %}
+
+{% block title %}{{ copy.nav_services }} · {{ copy.site_name }}{% endblock %}
+{% block description %}{{ copy.services_lead }}{% endblock %}
+{% block og_title %}Услуги · {{ copy.site_name }}{% endblock %}
+{% block og_description %}{{ copy.services_lead }}{% endblock %}
+{% block twitter_title %}Услуги · {{ copy.site_name }}{% endblock %}
+{% block twitter_description %}{{ copy.services_lead }}{% endblock %}
+{% block extra_head %}<script type="application/ld+json">{{ structured_data|safe }}</script>{% endblock %}
+
+{% block content %}
+  <section class="page-hero page-hero-split">
+    <div>
+      <p class="eyebrow">{{ copy.services_eyebrow }}</p>
+      <h1>{{ copy.services_title }}<br /><em>{{ copy.services_accent }}</em></h1>
+      <p>{{ copy.services_lead }}</p>
+    </div>
+    <div class="shape-stage">
+      <span class="shape shape-a"></span>
+      <span class="shape shape-b"></span>
+      {% if assets.services_symbol %}<img src="{{ assets.services_symbol }}" alt="" />{% endif %}
+    </div>
+  </section>
+
+  <section class="section service-detail-list">
+    {% for service in services %}
+      <article id="{{ service.slug }}" class="service-detail reveal">
+        <div>
+          <span class="service-index">0{{ forloop.counter }}</span>
+          <p class="eyebrow">{{ service.eyebrow }}</p>
+          <h2>{{ service.title }}</h2>
+        </div>
+        <div>
+          <p>{{ service.description }}</p>
+          <dl>
+            <div><dt>{{ copy.price_label }}</dt><dd>{{ service.price }}</dd></div>
+            <div><dt>{{ copy.duration_label }}</dt><dd>{{ service.duration }}</dd></div>
+          </dl>
+          <a class="button button-dark" href="{% url 'studio:service_detail' service.slug %}">{{ copy.service_button }}</a>
+        </div>
+      </article>
+    {% endfor %}
+  </section>
+
+  <section class="section faq">
+    <div class="faq-heading">
+      <p class="eyebrow">{{ copy.faq_eyebrow }}</p>
+      <h2>{{ copy.faq_title }}</h2>
+    </div>
+    <div class="faq-list" data-accordion>
+      {% for faq in faqs %}
+        <article class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-answer-{{ faq.id }}">
+            <span>{{ faq.question }}</span>
+          </button>
+          <div class="faq-answer-wrap" id="faq-answer-{{ faq.id }}">
+            <div class="faq-answer"><p>{{ faq.answer }}</p></div>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+{% endblock %}
